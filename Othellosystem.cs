@@ -1,7 +1,8 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Othellosystem : MonoBehaviour
 {
@@ -56,6 +57,7 @@ public class Othellosystem : MonoBehaviour
 
     public Text _Turn;
     public Text _ScoreText;
+    public Text _GameRestart;
     
     private const string WhiteTurn = "白のターン";
     private const string BlackTurn = "黒のターン";
@@ -106,6 +108,11 @@ public class Othellosystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("TitleScene");
+        }
+
         int dX = 0;
         int dY = 0;
         if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -282,12 +289,26 @@ public class Othellosystem : MonoBehaviour
         int Black = BlackScore();
         int White = WhiteScore();
         _Turn.text = "ゲーム終了";
+        _GameRestart.text = "スペースキー最初から";
         if (White > Black)
+        {
             _ScoreText.text = "White win!!\r\n" + White + ":" + Black;
+        }
         else if (Black > White)
+        {
             _ScoreText.text = "Black win!!\r\n" + Black + ":" + White;
+        }
         else
+        {
             _ScoreText.text = "Draw!!\r\n" + White + ":" + Black;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            SceneManager.LoadScene("Othello");
+        }
+
+        
     }
 
     // 黒の集計
